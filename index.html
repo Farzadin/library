@@ -9,7 +9,34 @@
   <title>Library</title>
 </head>
 <body>
-  <main>
+  <div class="modal" id="modal">
+    <div class="modal__header">
+      <div class="title">Add New Book</div>
+      <button  class="close__btn">&times;</button>
+    </div>
+    <div class="modal__body">
+      <form action="#" method="post">
+        <div class="form__row">
+          <label for="title">Title</label>
+          <input type="text" name="title" id="title">
+        </div>
+        <div class="form__row">
+          <label for="author">Author</label>
+          <input type="text" name="author" id="author">
+        </div>
+        <div class="form__row">
+          <label for="pages">pages</label>
+          <input type="number" name="pages" id="pages">
+        </div>
+        <div class="form__row">
+          <label class="checkbox__label" for="read">Read</label>
+          <input type="checkbox" name="read" id="read">
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+  <button class="new__book">&plus; NEW BOOK</button>
     <table>
       <tr>
         <th>Title</th>
@@ -24,6 +51,6 @@
         <td>Not Read Yet</td>
       </tr>
     </table>
-  </main>
+  <div  id="overlay"></div>
 </body>
 </html>
