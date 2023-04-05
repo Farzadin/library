@@ -1,7 +1,6 @@
 const myLibrary = [];
 const bookIds = [];
 const displayedBooks = [];
-const tableBody = document.querySelector('tbody');
 const openModalButton = document.querySelector('.new__book');
 const closeModalButton = document.querySelector('.close__btn');
 const submitButton = document.querySelector('.submit');
@@ -25,10 +24,24 @@ Book.prototype.toggleReadStatus = function () {
   }
 };
 
+function openModal() {
+  if (modal == null) return;
+  modal.classList.add('active');
+  overlay.classList.add('active');
+}
+
+function closeModal() {
+  if (modal == null) return;
+  modal.classList.remove('active');
+  overlay.classList.remove('active');
+}
+
 function displayBooks() {
+  // Display the newly created row on table
   myLibrary.forEach((book) => {
     if (!displayedBooks.includes(book)) {
       const row = document.createElement('tr');
+      const tableBody = document.querySelector('tbody');
 
       row.innerHTML = `
       <td>${book.id}</td>
@@ -37,13 +50,14 @@ function displayBooks() {
       <td>${book.pages}</td>
       <td>${book.read}</td>
       <td><button class='remove' data-id='${book.id}'>&times;</button></td>
-      <td><button class='toggle' data-id='${book.id}'>Toggle Read Status</button></td>
+      <td><button class='toggle'>Toggle Read Status</button></td>
       `;
 
       tableBody.appendChild(row);
       displayedBooks.push(book);
     }
 
+    // remove book object and it's row on table
     const removeButtons = document.querySelectorAll('.remove');
     removeButtons.forEach((button) => {
       button.addEventListener('click', (e) => {
@@ -59,6 +73,7 @@ function displayBooks() {
       });
     });
 
+    // toggle read status
     const toggleButtons = document.querySelectorAll('.toggle');
     toggleButtons.forEach((btn) => {
       btn.addEventListener('click', (e) => {
@@ -72,20 +87,25 @@ function displayBooks() {
 }
 
 function addBook(event) {
+  // change default behavior of submit button
   event.preventDefault();
 
+  // access the values of form inputs
   const id = document.querySelector('#id').value;
   const title = document.querySelector('#title').value;
   const author = document.querySelector('#author').value;
   const pages = document.querySelector('#pages').value;
   const read = document.querySelector('#read');
 
+  // check for checkbox
   if (read.checked === true) read.value = 'Already read it';
   if (read.checked === false) read.value = 'Not read yet';
+
+  // can't leave the input ID empty.
   if (id === '') return;
 
+  // create new book object and add it into the myLibrary
   const newBook = new Book(id, title, author, pages, read.value);
-
   if (!bookIds.includes(newBook.id)) {
     bookIds.push(newBook.id);
     myLibrary.push(newBook);
@@ -94,20 +114,7 @@ function addBook(event) {
   }
 }
 
-submitButton.addEventListener('click', addBook);
-
-function openModal() {
-  if (modal == null) return;
-  modal.classList.add('active');
-  overlay.classList.add('active');
-}
-
-function closeModal() {
-  if (modal == null) return;
-  modal.classList.remove('active');
-  overlay.classList.remove('active');
-}
-
 openModalButton.addEventListener('click', openModal);
 closeModalButton.addEventListener('click', closeModal);
 overlay.addEventListener('click', closeModal);
+submitButton.addEventListener('click', addBook);
