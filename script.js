@@ -50,7 +50,7 @@ function displayBooks() {
       <td>${book.pages}</td>
       <td>${book.read}</td>
       <td><button class='remove' data-id='${book.id}'>&times;</button></td>
-      <td><button class='toggle'>Toggle Read Status</button></td>
+      <td><button class='toggle'>Toggle Status</button></td>
       `;
 
       tableBody.appendChild(row);
