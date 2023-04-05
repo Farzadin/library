@@ -16,6 +16,15 @@ function Book(id, title, author, pages, read) {
   this.read = read;
 }
 
+// eslint-disable-next-line func-names
+Book.prototype.toggleReadStatus = function () {
+  if (this.read === 'Already read it') {
+    this.read = 'Not read yet';
+  } else {
+    this.read = 'Already read it';
+  }
+};
+
 function displayBooks() {
   myLibrary.forEach((book) => {
     if (!displayedBooks.includes(book)) {
@@ -28,11 +37,13 @@ function displayBooks() {
       <td>${book.pages}</td>
       <td>${book.read}</td>
       <td><button class='remove' data-id='${book.id}'>&times;</button></td>
+      <td><button class='toggle' data-id='${book.id}'>Toggle Read Status</button></td>
       `;
 
       tableBody.appendChild(row);
       displayedBooks.push(book);
     }
+
     const removeButtons = document.querySelectorAll('.remove');
     removeButtons.forEach((button) => {
       button.addEventListener('click', (e) => {
@@ -45,6 +56,16 @@ function displayBooks() {
 
         const tableRow = e.target.parentElement.parentElement;
         tableRow.remove();
+      });
+    });
+
+    const toggleButtons = document.querySelectorAll('.toggle');
+    toggleButtons.forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        book.toggleReadStatus();
+        const tableRow = e.target.parentElement.parentElement;
+        const readCell = tableRow.querySelector('td:nth-child(5)');
+        readCell.textContent = book.read;
       });
     });
   });
