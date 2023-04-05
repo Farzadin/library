@@ -1,9 +1,11 @@
 const myLibrary = [];
 const bookIds = [];
-const table = document.querySelector('table');
+const displayedBooks = [];
+const tableBody = document.querySelector('tbody');
 const openModalButton = document.querySelector('.new__book');
 const closeModalButton = document.querySelector('.close__btn');
 const submitButton = document.querySelector('.submit');
+const modal = document.querySelector('.modal');
 const overlay = document.getElementById('overlay');
 
 function Book(id, title, author, pages, read) {
@@ -15,16 +17,22 @@ function Book(id, title, author, pages, read) {
 }
 
 function displayBooks() {
-  myLibrary.forEach((item) => {
-    const row = document.createElement('tr');
-    row.innerHTML = `
-      <td>${item.id}</td>
-      <td>${item.title}</td>
-      <td>${item.author}</td>
-      <td>${item.pages}</td>
-      <td>${item.read}</td>`;
+  myLibrary.forEach((book) => {
+    if (!displayedBooks.includes(book)) {
+      const row = document.createElement('tr');
 
-    table.appendChild(row);
+      row.innerHTML = `
+      <td>${book.id}</td>
+      <td>${book.title}</td>
+      <td>${book.author}</td>
+      <td>${book.pages}</td>
+      <td>${book.read}</td>
+      <td><button class="remove">&times;</button></td>`;
+
+      row.setAttribute('data-id', `${book.id}`);
+      tableBody.appendChild(row);
+      displayedBooks.push(book);
+    }
   });
 }
 
@@ -46,34 +54,24 @@ function addBook(event) {
     bookIds.push(newBook.id);
     myLibrary.push(newBook);
     displayBooks();
-    myLibrary.pop();
+    closeModal();
   }
 }
 
 submitButton.addEventListener('click', addBook);
 
-function openModal(modal) {
+function openModal() {
   if (modal == null) return;
   modal.classList.add('active');
   overlay.classList.add('active');
 }
 
-function closeModal(modal) {
+function closeModal() {
   if (modal == null) return;
   modal.classList.remove('active');
   overlay.classList.remove('active');
 }
 
-openModalButton.addEventListener('click', () => {
-  const modal = document.querySelector('.modal');
-  openModal(modal);
-});
-closeModalButton.addEventListener('click', () => {
-  const modal = document.querySelector('.modal');
-  closeModal(modal);
-});
-
-overlay.addEventListener('click', () => {
-  const modal = document.querySelector('.modal.active');
-  closeModal(modal);
-});
+openModalButton.addEventListener('click', openModal);
+closeModalButton.addEventListener('click', closeModal);
+overlay.addEventListener('click', closeModal);
