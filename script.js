@@ -27,12 +27,26 @@ function displayBooks() {
       <td>${book.author}</td>
       <td>${book.pages}</td>
       <td>${book.read}</td>
-      <td><button class="remove">&times;</button></td>`;
+      <td><button class='remove' data-id='${book.id}'>&times;</button></td>
+      `;
 
-      row.setAttribute('data-id', `${book.id}`);
       tableBody.appendChild(row);
       displayedBooks.push(book);
     }
+    const removeButtons = document.querySelectorAll('.remove');
+    removeButtons.forEach((button) => {
+      button.addEventListener('click', (e) => {
+        const bookId = Number(e.target.getAttribute('data-id'));
+
+        const bookIndex = myLibrary.findIndex((item) => item.id === bookId);
+        myLibrary.splice(bookIndex, 1);
+        displayedBooks.splice(bookIndex, 1);
+        bookIds.splice(bookIndex, 1);
+
+        const tableRow = e.target.parentElement.parentElement;
+        tableRow.remove();
+      });
+    });
   });
 }
 
@@ -47,6 +61,7 @@ function addBook(event) {
 
   if (read.checked === true) read.value = 'Already read it';
   if (read.checked === false) read.value = 'Not read yet';
+  if (id === '') return;
 
   const newBook = new Book(id, title, author, pages, read.value);
 

@@ -97,6 +97,15 @@ button[type='submit']:hover {
   background-color: #76aeed;
 }
 
+.remove {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
 .new__book {
   text-align: center;
   font-size: 16px;
