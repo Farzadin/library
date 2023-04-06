@@ -76,13 +76,13 @@ input[type='number'] {
   border-radius: 3px;
   width: 100%;
   padding: 7px;
-  font-size: 14px;
+  font-size: 0.8rem;
   margin-top: 6px;
 }
 
 button[type='submit'] {
   text-align: center;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: bold;
 
   color: #ffffff;
@@ -104,12 +104,22 @@ button[type='submit']:hover {
   background-color: #76aeed;
 }
 
+footer {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  text-align: center;
+  font-family: bold;
+  font-size: 1.25rem;
+  padding: 10px 10px;
+}
+
 .remove {
   cursor: pointer;
   border: none;
   outline: none;
   background: none;
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: bold;
   color: #da5959;
 }
@@ -121,7 +131,7 @@ button[type='submit']:hover {
 
   font-weight: bold;
   text-align: center;
-  font-size: 14px;
+  font-size: 0.8rem;
   font-weight: bold;
 
   color: #ffffff;
@@ -133,7 +143,7 @@ button[type='submit']:hover {
 
 .new__book {
   text-align: center;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: bold;
 
   color: #ffffff;
