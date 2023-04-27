@@ -7,22 +7,23 @@ const submitButton = document.querySelector('.submit');
 const modal = document.querySelector('.modal');
 const overlay = document.getElementById('overlay');
 
-function Book(id, title, author, pages, read) {
-  this.id = id;
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-}
-
-// eslint-disable-next-line func-names
-Book.prototype.toggleReadStatus = function () {
-  if (this.read === 'Already read it') {
-    this.read = 'Not read yet';
-  } else {
-    this.read = 'Already read it';
+class Book {
+  constructor(id, title, author, pages, read) {
+    this.id = id;
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
   }
-};
+
+  toggleReadStatus() {
+    if (this.read === 'Already read it') {
+      this.read = 'Not read yet';
+    } else {
+      this.read = 'Already read it';
+    }
+  }
+}
 
 function openModal() {
   if (modal == null) return;
